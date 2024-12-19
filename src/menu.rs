@@ -250,7 +250,6 @@ impl ContextMenu for Menu {
 }
 
 /// The window menu bar theme
-#[cfg(windows)]
 #[repr(usize)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]

@@ -1,6 +1,6 @@
 [package]
 name = "muda-win"
-version = "0.1.0"
+version = "0.1.1"
 description = "Menu Utilities for Desktop Applications on Windows (fork of tauri-apps/muda)"
 edition = "2021"
 keywords = ["windowing", "menu"]
@@ -9,6 +9,11 @@ readme = "README.md"
 repository = "https://github.com/win-rs/muda-win"
 documentation = "https://docs.rs/muda-win"
 categories = ["gui"]
+
+[package.metadata.docs.rs]
+all-features = true
+default-target = "x86_64-pc-windows-msvc"
+targets = ["i686-pc-windows-msvc"]
 
 [features]
 default = []

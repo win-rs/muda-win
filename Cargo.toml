@@ -1,0 +1,42 @@
+[package]
+name = "muda-win"
+version = "0.1.0"
+description = "Menu Utilities for Desktop Applications on Windows (fork of tauri-apps/muda)"
+edition = "2021"
+keywords = ["windowing", "menu"]
+license = "Apache-2.0 OR MIT"
+readme = "README.md"
+repository = "https://github.com/win-rs/muda-win"
+documentation = "https://docs.rs/muda-win"
+categories = ["gui"]
+
+[features]
+default = []
+common-controls-v6 = []
+serde = ["dep:serde", "dpi/serde"]
+
+[dependencies]
+crossbeam-channel = "0.5.14"
+keyboard-types = "0.7.0"
+serde = { version = "1.0.216", optional = true }
+dpi = "0.1.1"
+
+[dependencies.windows-sys]
+version = "0.59"
+features = [
+  "Win32_UI_WindowsAndMessaging",
+  "Win32_Foundation",
+  "Win32_Graphics_Gdi",
+  "Win32_UI_Shell",
+  "Win32_Globalization",
+  "Win32_UI_Input_KeyboardAndMouse",
+  "Win32_System_SystemServices",
+  "Win32_UI_Accessibility",
+  "Win32_UI_HiDpi",
+  "Win32_System_LibraryLoader",
+  "Win32_UI_Controls",
+]
+
+[dev-dependencies]
+winit = "0.30.5"
+tao = "0.31"

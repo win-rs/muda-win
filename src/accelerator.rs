@@ -33,7 +33,7 @@ pub const CMD_OR_CTRL: Modifiers = Modifiers::CONTROL;
 #[derive(Debug)]
 pub enum AcceleratorParseError {
     /// Couldn't recognize a key as valid for an accelerator.
-    /// If you feel like it should be, please report this to https://github.com/win-rs/muda-win.
+    /// If you feel like it should be, please report this to <https://github.com/win-rs/muda-win>.
     UnsupportedKey(String),
     /// Found an empty token while parsing an accelerator.
     EmptyToken(String),

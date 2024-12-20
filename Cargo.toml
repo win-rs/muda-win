@@ -1,6 +1,6 @@
 [package]
 name = "muda-win"
-version = "0.1.1"
+version = "0.1.2"
 description = "Menu Utilities for Desktop Applications on Windows (fork of tauri-apps/muda)"
 edition = "2021"
 keywords = ["windowing", "menu"]

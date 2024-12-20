@@ -356,11 +356,19 @@ impl MenuEvent {
     ///
     /// Calling this function with a `Some` value,
     /// will not send new events to the channel associated with [`MenuEvent::receiver`]
-    pub fn set_event_handler<F: Fn(MenuEvent) + Send + Sync + 'static>(f: Option<F>) {
+    pub fn set_event_handler<F: Fn(MenuEvent) + Send + Sync + 'static>(
+        f: Option<F>,
+    ) -> Option<&'static Option<MenuEventHandler>> {
         if let Some(f) = f {
             let _ = MENU_EVENT_HANDLER.set(Some(Box::new(f)));
         } else {
             let _ = MENU_EVENT_HANDLER.set(None);
+        }
+
+        // Return the current value stored in MENU_EVENT_HANDLER
+        match MENU_EVENT_HANDLER.get() {
+            Some(handler) => Some(handler),
+            _ => None,
         }
     }
 

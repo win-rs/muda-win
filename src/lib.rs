@@ -329,7 +329,7 @@ pub struct MenuEvent {
 
 /// A reciever that could be used to listen to menu events.
 pub type MenuEventReceiver = Receiver<MenuEvent>;
-type MenuEventHandler = Box<dyn Fn(MenuEvent) + Send + Sync + 'static>;
+pub type MenuEventHandler = Box<dyn Fn(MenuEvent) + Send + Sync + 'static>;
 
 static MENU_CHANNEL: LazyLock<(Sender<MenuEvent>, MenuEventReceiver)> = LazyLock::new(unbounded);
 static MENU_EVENT_HANDLER: OnceLock<Option<MenuEventHandler>> = OnceLock::new();
@@ -358,16 +358,18 @@ impl MenuEvent {
     /// will not send new events to the channel associated with [`MenuEvent::receiver`]
     pub fn set_event_handler<F: Fn(MenuEvent) + Send + Sync + 'static>(
         f: Option<F>,
-    ) -> Option<&'static Option<MenuEventHandler>> {
+    ) -> Option<Option<MenuEventHandler>> {
         if let Some(f) = f {
-            let _ = MENU_EVENT_HANDLER.set(Some(Box::new(f)));
+            // Wrap the closure in a Box to store on the heap
+            let boxed_handler = Box::new(f);
+            let _ = MENU_EVENT_HANDLER.set(Some(boxed_handler));
         } else {
             let _ = MENU_EVENT_HANDLER.set(None);
         }
 
-        // Return the current value stored in MENU_EVENT_HANDLER
+        // Dereference and return the Box
         match MENU_EVENT_HANDLER.get() {
-            Some(handler) => Some(handler),
+            Some(Some(handler)) => Some(Some(Box::new(handler))),
             _ => None,
         }
     }
